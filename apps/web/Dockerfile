@@ -1,6 +1,6 @@
 FROM node:14-slim As development
 
-COPY /libs/ ./libs/
+ADD libs libs
 
 WORKDIR /usr/src/app
 
