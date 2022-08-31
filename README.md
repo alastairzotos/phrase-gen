@@ -17,7 +17,7 @@ Simply head over to https://phrase-gen.bitmetro.io
 Install with `npm i @bitmetro/phrase-gen`
 
 ```js
-import { generateOutput } from '@bitmetro/phrase-gen`
+import { generateOutput } from '@bitmetro/phrase-gen'
 
 const results = generateOutput(
   [
