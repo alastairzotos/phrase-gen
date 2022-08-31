@@ -25,8 +25,8 @@ COPY libs libs
 COPY --from=installer /app/node_modules ./node_modules
 RUN turbo run build --scope=\${SCOPE} --include-dependencies
 
+FROM builder
 EXPOSE 3000
-
 CMD yarn workspace \${SCOPE} start`;
 
 const libs = fs.readdirSync(path.resolve(__dirname, '..', 'libs'));
