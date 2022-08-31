@@ -1,77 +1,60 @@
-# Turborepo starter with npm
+# PhraseGen
 
-This is an official starter turborepo.
+A simple tool to generate keyword phrases for search engine ads.
 
-## What's inside?
+![PhraseGen Screenshot](https://i.imgur.com/UIIM1qH.png)
 
-This turborepo uses [npm](https://www.npmjs.com/) as a package manager. It includes the following packages/apps:
+## Usage
 
-### Apps and Packages
+You can use PhraseGen in as an NPM package, using the API or via the UI.
 
-- `docs`: a [Next.js](https://nextjs.org) app
-- `web`: another [Next.js](https://nextjs.org) app
-- `ui`: a stub React component library shared by both `web` and `docs` applications
-- `eslint-config-custom`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `tsconfig`: `tsconfig.json`s used throughout the monorepo
+#### Usage via UI
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
+Simply head over to https://phrase-gen.bitmetro.io
 
-### Utilities
+#### Usage via NPM package
 
-This turborepo has some additional tools already setup for you:
+Install with `npm i @bitmetro/phrase-gen`
 
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
+```js
+import { generateOutput } from '@bitmetro/phrase-gen`
 
-## Setup
-
-This repository is used in the `npx create-turbo@latest` command, and selected when choosing which package manager you wish to use with your monorepo (npm).
-
-### Build
-
-To build all apps and packages, run the following command:
-
-```
-cd my-turborepo
-npm run build
-```
-
-### Develop
-
-To develop all apps and packages, run the following command:
-
-```
-cd my-turborepo
-npm run dev
+const results = generateOutput(
+  [
+    'buy @item in @city',
+    '@item for sale in @city'
+  ],
+  [
+    {
+      name: 'item',
+      values: ['flowers', 'chairs']
+    },
+    {
+      name: 'city',
+      values: ['london', 'paris']
+    }
+  ]
+)
 ```
 
-### Remote Caching
+#### Usage via API
 
-Turborepo can use a technique known as [Remote Caching](https://turborepo.org/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
+The API is open and can be easily accessed:
+```http
+POST http://hrase-gen-api.bitmetro.io
+Content-Type: application/json
 
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup), then enter the following commands:
-
+{
+    "inputs": ["buy @item in @city"],
+    "variables": [
+        {
+            "name": "item",
+            "values": ["chairs", "tables"]
+        },
+        {
+            "name": "city",
+            "values": ["london", "paris"]
+        }
+    ]
+}
 ```
-cd my-turborepo
-npx turbo login
-```
-
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
-
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your turborepo:
-
-```
-npx turbo link
-```
-
-## Useful Links
-
-Learn more about the power of Turborepo:
-
-- [Pipelines](https://turborepo.org/docs/core-concepts/pipelines)
-- [Caching](https://turborepo.org/docs/core-concepts/caching)
-- [Remote Caching](https://turborepo.org/docs/core-concepts/remote-caching)
-- [Scoped Tasks](https://turborepo.org/docs/core-concepts/scopes)
-- [Configuration Options](https://turborepo.org/docs/reference/configuration)
-- [CLI Usage](https://turborepo.org/docs/reference/command-line-reference)
