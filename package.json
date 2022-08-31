@@ -21,8 +21,6 @@
     "npm": ">=7.0.0",
     "node": ">=14.0.0"
   },
-  "dependencies": {
-    "nestjs": "^0.0.1"
-  },
-  "packageManager": "npm@8.5.5"
+  "dependencies": {},
+  "packageManager": "yarn@1.22.10"
 }
