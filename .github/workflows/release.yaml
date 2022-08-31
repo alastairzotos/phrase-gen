@@ -34,7 +34,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          context: ./apps/api
+          context: .
           tags: bitmetro/phrase-gen-api:${{ github.ref_name }}
           build-args: |
             SCOPE=api
