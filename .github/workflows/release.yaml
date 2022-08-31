@@ -27,9 +27,6 @@ jobs:
           build-args: |
             SCOPE=web
 
-      - name: Create Dockerfile
-        run: make build-dockerfile
-
       - name: Build and push api
         uses: docker/build-push-action@v2
         with:

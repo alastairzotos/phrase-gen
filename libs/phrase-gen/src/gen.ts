@@ -56,8 +56,6 @@ export const generateOutputInner = (phrases: string[], variables: VariableValue[
       return [word];
     })
 
-    console.log(parts);
-
     outputs.push(...generateLines(parts));
   }
 
