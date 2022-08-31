@@ -10,11 +10,11 @@ A simple tool to generate keyword phrases for search engine ads.
 
 You can use PhraseGen in as an NPM package, using the API or via the UI.
 
-#### Usage via UI
+### Usage via UI
 
 Simply head over to https://phrase-gen.bitmetro.io
 
-#### Usage via NPM package
+### Usage via NPM package
 
 Install with `npm i @bitmetro/phrase-gen`
 
@@ -39,7 +39,7 @@ const results = generateOutput(
 )
 ```
 
-#### Usage via API
+### Usage via API
 
 The API is open and can be easily accessed:
 ```http
