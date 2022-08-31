@@ -1,5 +1,7 @@
 FROM node:14-slim As development
 
+COPY /libs/ ./libs/
+
 WORKDIR /usr/src/app
 
 COPY package*.json ./
