@@ -1,5 +1,7 @@
 # PhraseGen
 
+![ts](https://flat.badgen.net/badge/-/TypeScript?icon=typescript&label&labelColor=blue&color=555555)
+
 A simple tool to generate keyword phrases for search engine ads.
 
 ![PhraseGen Screenshot](https://i.imgur.com/Hu2GGJ0.png)
