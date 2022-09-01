@@ -6,7 +6,9 @@ export interface VariableValue {
 }
 
 export interface GeneratorErrors {
-  errorType: 'circular_reference'
+  errorType: 'circular_reference',
+  message: string;
+  circularReferences?: VariableValue[];
 }
 
 export interface PhraseGenResult {
@@ -72,8 +74,56 @@ export const generateOutputInner = (phrases: string[], variables: VariableValue[
   return outputs;
 }
 
+const checkCircularReference = (variables: VariableValue[], current: VariableValue, path: VariableValue[] = []): VariableValue[] => {
+  path.push(current);
+
+  for (let line of current.values) {
+    const words = line.split(' ');
+    const referencedVariables = words
+      .filter(word => word.startsWith(variableSymbol))
+      .map(variableName => variableName.substring(1))
+      .map(variableName => variables.find(v => v.name === variableName))
+      .filter(v => !!v);
+
+    if (referencedVariables.find(refd => path.find(item => item.name === refd.name))) {
+      return path;
+    }
+
+    for (let refd of referencedVariables) {
+      const found = checkCircularReference(variables, refd, [...path, refd]);
+      if (found) {
+        return found;
+      }
+    }
+  }
+
+  return [];
+}
+
+const findCircularReferences = (variables: VariableValue[]): VariableValue[] => {
+  for (let variable of variables) {
+    const found = checkCircularReference(variables, variable);
+    if (found.length) {
+      return Object.values(found.reduce<{ [key: string]: VariableValue }>((acc, cur) => ({ ...acc, [cur.name]: cur }), {}));  // Get unique
+    }
+  }
+
+  return [];
+}
+
 export const generateOutput = (phrases: string[], variables: VariableValue[]): PhraseGenResult => {
-  // return phrases.reduce<string[]>((acc, phrase) => [...acc, ...generateOutputInner([phrase], variables)], []);
+  const circularReferences = findCircularReferences(variables);
+  if (circularReferences.length > 0) {
+    return {
+      success: false,
+      errors: {
+        errorType: 'circular_reference',
+        message: `Circular reference between ${circularReferences.map(ref => ref.name).join(', ')}`,
+        circularReferences
+      }
+    }
+  }
+
   return {
     success: true,
     results: generateOutputInner(phrases, variables)
