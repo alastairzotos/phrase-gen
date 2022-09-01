@@ -118,7 +118,7 @@ export const generateOutput = (phrases: string[], variables: VariableValue[]): P
       success: false,
       errors: {
         errorType: 'circular_reference',
-        message: `Circular reference between ${circularReferences.map(ref => ref.name).join(', ')}`,
+        message: `Circular reference in ${circularReferences.map(ref => `'${ref.name}'`).join(', ')}`,
         circularReferences
       }
     }

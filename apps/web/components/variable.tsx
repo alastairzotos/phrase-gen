@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Card, Typography, Space, Tooltip, Modal } from 'antd';
 import { CloseOutlined, WarningFilled } from '@ant-design/icons';
 import { usePhraseGenState } from '../state';
@@ -12,7 +12,8 @@ interface Props {
 
 const errors = {
   'no-content': 'Variable name cannot be empty',
-  'already-exists': 'Variable with this name already exists'
+  'already-exists': 'Variable with this name already exists',
+  'circular': 'Variable is part of a circular reference'
 }
 
 type ErrorType = keyof typeof errors | null;
@@ -24,11 +25,24 @@ export const Variable: React.FC<Props> = ({ variable }) => {
   const renameVariable = usePhraseGenState(state => state.renameVariable);
   const setVariableValues = usePhraseGenState(state => state.setVariableValues);
   const deleteVariable = usePhraseGenState(state => state.deleteVariable);
+  const output = usePhraseGenState(state => state.output);
 
   const [name, setName] = useState(variable.name);
   const [hovered, setHovered] = useState(false);
   const [error, setError] = useState<ErrorType>(null);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+
+  useEffect(() => {
+    if (!output.success) {
+      if (output.errors!.errorType === 'circular_reference' && output.errors?.circularReferences?.find(refd => refd.name === name)) {
+        setError('circular');
+      } else {
+        setError(null);
+      }
+    } else {
+      setError(null);
+    }
+  }, [output.success])
 
   const validateName = (value: string) => {
     const isEmpty = value.length === 0;

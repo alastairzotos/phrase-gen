@@ -13,7 +13,7 @@ export const Output: React.FC = () => {
         value={
           output.success
           ? output.results!.join('\n')
-          : output.errors?.errorType!
+          : output.errors?.message!
         }
         style={{ overflowY: 'scroll', maxHeight: '100%' }}
       />
