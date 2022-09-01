@@ -1,2 +1,8 @@
-build-dockerfile:
-	node ./scripts/build-dockerfile.js
+publish-pckg:
+	cd libs/phrase-gen; \
+	npm version patch; \
+	npm publish --access=public; \
+	cd ../..; \
+	git add .; \
+	git commit -m "feat: bump version to $$(node -p "require('./package.json').version")"; \
+	git push; \
