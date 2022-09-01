@@ -48,7 +48,7 @@ const generateLines = (parts: string[][]): string[] => {
   return lines;
 }
 
-export const generateOutputInner = (phrases: string[], variables: VariableValue[]): string[] => {
+const generateOutputInner = (phrases: string[], variables: VariableValue[]): string[] => {
   let outputs: string[] = [];
 
   for (const phrase of phrases) {
