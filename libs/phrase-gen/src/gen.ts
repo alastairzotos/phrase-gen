@@ -5,6 +5,16 @@ export interface VariableValue {
   values: string[];
 }
 
+export interface GeneratorErrors {
+  errorType: 'circular_reference'
+}
+
+export interface PhraseGenResult {
+  success: boolean;
+  results?: string[];
+  errors?: GeneratorErrors;
+}
+
 const generateLines = (parts: string[][]): string[] => {
   const indices: number[] = new Array(parts.length).fill(0);
   const lines: string[] = [];
@@ -62,7 +72,10 @@ export const generateOutputInner = (phrases: string[], variables: VariableValue[
   return outputs;
 }
 
-export const generateOutput = (phrases: string[], variables: VariableValue[]) => {
+export const generateOutput = (phrases: string[], variables: VariableValue[]): PhraseGenResult => {
   // return phrases.reduce<string[]>((acc, phrase) => [...acc, ...generateOutputInner([phrase], variables)], []);
-  return generateOutputInner(phrases, variables);
+  return {
+    success: true,
+    results: generateOutputInner(phrases, variables)
+  }
 }

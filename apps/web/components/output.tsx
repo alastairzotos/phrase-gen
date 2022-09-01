@@ -10,7 +10,11 @@ export const Output: React.FC = () => {
     <Column title="Output">
       <Textarea
         disabled
-        value={output.join('\n')}
+        value={
+          output.success
+          ? output.results!.join('\n')
+          : output.errors?.errorType!
+        }
         style={{ overflowY: 'scroll', maxHeight: '100%' }}
       />
     </Column>

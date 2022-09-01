@@ -3,7 +3,7 @@ import { Injectable } from "@nestjs/common";
 
 @Injectable()
 export class PhrasesService {
-  generatePhrases(inputs: string[], variables: VariableValue[]): string[] {
+  generatePhrases(inputs: string[], variables: VariableValue[]) {
     return generateOutput(inputs, variables);
   }
 }

@@ -43,7 +43,7 @@ const results = generateOutput(
 
 The API is open and can be easily accessed:
 ```http
-POST https://phrase-gen-api.bitmetro.io/phrases
+POST https://phrase-gen-api.bitmetro.io/api/v1/phrases
 Content-Type: application/json
 
 {

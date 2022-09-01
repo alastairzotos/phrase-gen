@@ -1,5 +1,5 @@
 import create from 'zustand';
-import { generateOutput, VariableValue } from '@bitmetro/phrase-gen';
+import { generateOutput, VariableValue, PhraseGenResult } from '@bitmetro/phrase-gen';
 import { initialState } from './initial';
 
 export interface PhraseGenInputs {
@@ -8,7 +8,7 @@ export interface PhraseGenInputs {
 }
 
 interface PhraseGenData extends PhraseGenInputs {
-  output: string[];
+  output: PhraseGenResult;
 }
 
 interface PhraseGenActions {
