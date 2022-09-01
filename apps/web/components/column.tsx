@@ -17,6 +17,7 @@ export const Column: React.FC<React.PropsWithChildren<Props>> = ({
 }) => (
   <Card
     title={title}
+    type="inner"
     className={styles.column}
     bodyStyle={{ height: '100%', padding: 0, ...(bodyStyle || {}) }}
     extra={extra}

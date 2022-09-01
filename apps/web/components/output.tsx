@@ -15,7 +15,11 @@ export const Output: React.FC = () => {
           ? output.results!.join('\n')
           : output.errors?.message!
         }
-        style={{ overflowY: 'scroll', maxHeight: '100%' }}
+        style={{
+          overflowY: 'scroll',
+          maxHeight: '100%',
+          color: '#555'
+        }}
       />
     </Column>
   );

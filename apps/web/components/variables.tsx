@@ -16,7 +16,7 @@ export const Variables: React.FC = () => {
   return (
     <Column
       title="Variables"
-      bodyStyle={{ backgroundColor: 'black' }}
+      bodyStyle={{ backgroundColor: '#eee' }}
       extra={
         <Button size="small" type="primary" onClick={handleAddVariable}>
           <PlusOutlined /> Variable

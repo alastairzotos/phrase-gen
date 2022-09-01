@@ -17,7 +17,7 @@ export const AppTemplate: React.FC<React.PropsWithChildren<{}>> = ({ children })
             alt="BitMetro Logo"
           />
 
-          <Title level={3}>PhraseGen</Title>
+          <Title style={{ color: 'white' }} level={3}>PhraseGen</Title>
         </Space>
       </Header>
 

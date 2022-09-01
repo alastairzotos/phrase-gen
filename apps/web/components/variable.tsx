@@ -75,9 +75,10 @@ export const Variable: React.FC<Props> = ({ variable }) => {
   }
 
   return (
-    <div>
+    <div className={styles.variable}>
       <Card
         size="small"
+        type="inner"
         title={
           <Text
             editable={{
@@ -87,7 +88,6 @@ export const Variable: React.FC<Props> = ({ variable }) => {
             {name}
           </Text>
         }
-        className={styles.variable}
         bodyStyle={{ padding: 4 }}
         extra={
           <Space>
