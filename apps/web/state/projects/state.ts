@@ -1,10 +1,10 @@
 import create from 'zustand';
 import router from 'next/router'
 
-import { FetchStatus } from '../../models';
+import { FetchStatus, InjectedState } from '../../models';
 import { IProjectsService, ProjectsService } from "../../services/projects.service";
-import { usePhraseGenState } from '../phrase-gen';
-import { ProjectData, ProjectListItem } from '@bitmetro/phrase-gen-dtos';
+import { PhraseGenState, usePhraseGenState } from '../phrase-gen';
+import { ProjectListItem } from '@bitmetro/phrase-gen-dtos';
 import { urls } from '../../urls';
 
 export interface ProjectsValues {
@@ -28,7 +28,7 @@ export interface ProjectsActions {
 
 export type ProjectsState = ProjectsValues & ProjectsActions;
 
-export const createProjectsState = (initialValues: ProjectsValues, projectsService: IProjectsService) =>
+export const createProjectsState = (initialValues: ProjectsValues, projectsService: IProjectsService, phraseGenState: InjectedState<PhraseGenState>) =>
   create<ProjectsState>((set, get) => ({
     ...initialValues,
 
@@ -40,7 +40,7 @@ export const createProjectsState = (initialValues: ProjectsValues, projectsServi
       try {
         set({ saveStatus: 'fetching' });
 
-        const { phrases: inputs, variables } = usePhraseGenState.getState();
+        const { phrases: inputs, variables } = phraseGenState.getState();
 
         const _id = await projectsService.saveProject({
           _id: get()._id,
@@ -65,7 +65,7 @@ export const createProjectsState = (initialValues: ProjectsValues, projectsServi
 
         set({ loadStatus: 'success', _id, name });
 
-        usePhraseGenState.getState().setPhrasesAndVariables(inputs, variables);
+        phraseGenState.getState().setPhrasesAndVariables(inputs, variables);
       } catch {
         set({ loadStatus: 'failure' });
       }
@@ -92,4 +92,4 @@ const initialValues: ProjectsValues = {
   projects: []
 }
 
-export const useProjectsState = createProjectsState(initialValues, new ProjectsService());
+export const useProjectsState = createProjectsState(initialValues, new ProjectsService(), usePhraseGenState);
