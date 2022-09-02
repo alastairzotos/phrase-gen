@@ -27,7 +27,7 @@ export const ProjectList: React.FC = () => {
     <div className={styles.list}>
       {loadProjectsStatus === 'fetching' && <Spin size='small'/>}
       {loadProjectsStatus === 'success' && (
-        <Select defaultValue={_id} onChange={handleSelectProject}>
+        <Select defaultValue={_id} onChange={handleSelectProject} placeholder='No projects'>
         {
           projects.map(project => (
             <Option
