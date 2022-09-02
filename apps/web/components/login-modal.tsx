@@ -44,6 +44,7 @@ export const LoginModal: React.FC<Props> = ({ open, onClose }) => {
           appId={getEnv().fbAppId}
           fields="name,email,first_name"
           callback={handleFacebookLogin}
+          icon='fa-facebook'
         />
       </div>
     </Modal>
