@@ -4,7 +4,7 @@ import { Card } from 'antd';
 import styles from './column.module.css';
 
 interface Props {
-  title: string;
+  title: React.ReactNode;
   bodyStyle?: React.CSSProperties;
   extra?: React.ReactNode;
 }
