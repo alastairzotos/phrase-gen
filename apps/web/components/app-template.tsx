@@ -10,7 +10,7 @@ export const AppTemplate: React.FC<React.PropsWithChildren<{}>> = ({ children })
       <AppHeader />
 
       <Layout>
-        <Content style={{ height: 'calc(100vh - 64px)' }}>
+        <Content style={{ height: 'calc(100vh - 72px)' }}>
           {children}
         </Content>
       </Layout>
