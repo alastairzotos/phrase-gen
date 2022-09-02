@@ -39,11 +39,14 @@ export const CustomTextArea: React.FC<Props> = ({ value: content, onChange }) =>
   const variables = usePhraseGenState(s => s.variables);
 
   return (
-    <Editor
-      style={{ fontFamily: 'lucida console, monospace' }}
-      value={content}
-      onValueChange={content => onChange(content)}
-      highlight={code => handleHighlight(code, variables)}
-    />
+    <div className={styles.wrapper}>
+      <Editor
+        style={{ fontFamily: 'lucida console, monospace' }}
+        textareaClassName={styles.textarea}
+        value={content}
+        onValueChange={content => onChange(content)}
+        highlight={code => handleHighlight(code, variables)}
+      />
+    </div>
   )
 };

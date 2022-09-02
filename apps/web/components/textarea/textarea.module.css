@@ -7,3 +7,16 @@
   font-weight: bold;
   color: #ff0000;
 }
+
+.wrapper {
+  max-height: 140px;
+  overflow: auto;
+}
+
+.textarea {
+  outline: none;
+}
+
+.textarea::selection {
+  background-color: rgba(0, 0, 255, 0.1);
+}
