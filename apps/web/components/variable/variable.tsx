@@ -98,7 +98,7 @@ export const Variable: React.FC<Props> = ({ variable, dragHandle }) => {
               </Tooltip>
             )}
 
-              {hovered && dragHandle}
+            {hovered && dragHandle}
 
             {hovered && (
               <a onClick={() => setDeleteModalOpen(true)}>
