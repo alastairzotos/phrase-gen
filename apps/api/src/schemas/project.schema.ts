@@ -1,4 +1,4 @@
-import { VariableValue } from '@bitmetro/phrase-gen';
+import { MatchType, VariableValue } from '@bitmetro/phrase-gen';
 import { ProjectData } from '@bitmetro/phrase-gen-dtos';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Schema as MongooseSchemma } from 'mongoose';
@@ -21,6 +21,9 @@ export class Project implements ProjectData {
 
   @Prop()
   variables: VariableValue[];
+
+  @Prop()
+  matchType: MatchType;
 
   @Prop()
   lastUpdated: Date;

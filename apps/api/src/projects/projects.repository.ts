@@ -23,11 +23,11 @@ export class ProjectsRepository {
     const found = project._id ? await this.projectsModel.findById(project._id) : undefined;
 
     if (found) {
-      await this.projectsModel.updateOne({ _id: project._id }, project)
+      await this.projectsModel.updateOne({ _id: project._id }, { ...project, lastUpdated: Date.now() });
       return project._id;
     }
 
-    const created = await this.projectsModel.create({ user, ...project });
-    return created._id;
+    const { _id } = await this.projectsModel.create({ user, ...project, lastUpdated: Date.now() });
+    return _id;
   }
 }

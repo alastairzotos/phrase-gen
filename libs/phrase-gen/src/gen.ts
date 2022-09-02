@@ -1,5 +1,7 @@
 const variableSymbol = '@';
 
+export type MatchType = 'broad-match' | 'phrase-match' | 'exact-match';
+
 export interface VariableValue {
   name: string;
   values: string[];
@@ -111,7 +113,7 @@ const findCircularReferences = (variables: VariableValue[]): VariableValue[] => 
   return [];
 }
 
-export const generateOutput = (phrases: string[], variables: VariableValue[]): PhraseGenResult => {
+export const generateOutput = (phrases: string[], variables: VariableValue[], matchType: MatchType = 'broad-match'): PhraseGenResult => {
   const circularReferences = findCircularReferences(variables);
   if (circularReferences.length > 0) {
     return {
@@ -124,8 +126,25 @@ export const generateOutput = (phrases: string[], variables: VariableValue[]): P
     }
   }
 
+  const generatedResults = generateOutputInner(phrases, variables);
+  let results: string[];
+
+  switch (matchType) {
+    case 'broad-match':
+      results = generatedResults;
+      break;
+
+    case 'phrase-match':
+      results = generatedResults.map(line => `"${line}"`);
+      break;
+
+    case 'exact-match':
+      results = generatedResults.map(line => `[${line}]`);
+      break;
+  }
+
   return {
     success: true,
-    results: generateOutputInner(phrases, variables)
+    results
   }
 }

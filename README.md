@@ -4,7 +4,7 @@
 
 A simple tool to generate keyword phrases for search engine ads.
 
-![PhraseGen Screenshot](https://i.imgur.com/lirl2hq.png)
+![PhraseGen Screenshot](https://i.imgur.com/DSwFOzb.png)
 
 ## Usage
 

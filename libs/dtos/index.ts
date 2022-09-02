@@ -1,4 +1,4 @@
-import { VariableValue } from "@bitmetro/phrase-gen";
+import { MatchType, VariableValue } from "@bitmetro/phrase-gen";
 
 export interface GoogleLoginRequest {
   code: string;
@@ -27,6 +27,7 @@ export interface ProjectData {
   name: string;
   inputs: string[];
   variables: VariableValue[];
+  matchType: MatchType;
   lastUpdated: Date;
 }
 

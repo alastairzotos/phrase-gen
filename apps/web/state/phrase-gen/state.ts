@@ -1,11 +1,11 @@
 import create from 'zustand';
-import { generateOutput, VariableValue, PhraseGenResult } from '@bitmetro/phrase-gen';
+import { generateOutput, VariableValue, PhraseGenResult, MatchType } from '@bitmetro/phrase-gen';
 import { ProjectsState, useProjectsState } from '../projects';
-import { InjectedState } from '../../models';
 
 export interface PhraseGenInputs {
   phrases: string[];
   variables: VariableValue[];
+  matchType: MatchType;
 }
 
 interface PhraseGenData extends PhraseGenInputs {
@@ -18,24 +18,24 @@ interface PhraseGenActions {
   renameVariable: (name: string, newName: string) => void;
   setVariableValues: (name: string, values: string[]) => void;
   deleteVariable: (name: string) => void;
-  setPhrasesAndVariables: (phrases: string[], variables: VariableValue[]) => void;
+  setMatchType: (matchType: MatchType) => void;
+  setValues: (phrases: string[], variables: VariableValue[], matchType: MatchType) => void;
 }
 
 export type PhraseGenState = PhraseGenData & PhraseGenActions;
 
-const generate = (state: PhraseGenInputs) => generateOutput(state.phrases, state.variables);
+const generate = ({ phrases, variables, matchType }: PhraseGenInputs) => generateOutput(phrases, variables, matchType);
 
-export const createPhraseGenState = (projectsState: InjectedState<ProjectsState>) =>
+export const createPhraseGenState = (initialState: PhraseGenInputs) =>
   create<PhraseGenState>((set, get) => ({
-    phrases: [],
-    variables: [],
-    output: generate({ phrases: [], variables: [] }),
+    ...initialState,
+    output: generate(initialState),
 
     setPhrases: phrases => {
       set({ phrases: phrases.map(phrase => phrase.trimStart()) });
       set({ output: generate(get()) });
 
-      projectsState.getState().setDirty(true);
+      useProjectsState.getState().setDirty(true);
     },
 
     addVariable: name => {
@@ -48,7 +48,7 @@ export const createPhraseGenState = (projectsState: InjectedState<ProjectsState>
 
       set({ output: generate(get()) });
 
-      projectsState.getState().setDirty(true);
+      useProjectsState.getState().setDirty(true);
     },
 
     renameVariable: (name, newName) => {
@@ -64,7 +64,7 @@ export const createPhraseGenState = (projectsState: InjectedState<ProjectsState>
 
       set({ output: generate(get()) });
 
-      projectsState.getState().setDirty(true);
+      useProjectsState.getState().setDirty(true);
     },
 
     setVariableValues: (name, values) => {
@@ -80,7 +80,7 @@ export const createPhraseGenState = (projectsState: InjectedState<ProjectsState>
 
       set({ output: generate(get()) });
 
-      projectsState.getState().setDirty(true);
+      useProjectsState.getState().setDirty(true);
     },
 
     deleteVariable: name => {
@@ -92,10 +92,19 @@ export const createPhraseGenState = (projectsState: InjectedState<ProjectsState>
 
       set({ output: generate(get()) });
 
-      projectsState.getState().setDirty(true);
+      useProjectsState.getState().setDirty(true);
     },
 
-    setPhrasesAndVariables: (phrases, variables) => set({ phrases, variables, output: generate({ phrases, variables }) }),
+    setMatchType: matchType => {
+      set({ matchType, output: generate({ ...get(), matchType }) });
+      useProjectsState.getState().setDirty(true);
+    },
+
+    setValues: (phrases, variables, matchType) => set({ phrases, variables, matchType, output: generate({ phrases, variables, matchType }) }),
   }));
 
-export const usePhraseGenState = createPhraseGenState(useProjectsState);
+export const usePhraseGenState = createPhraseGenState({
+  matchType: 'broad-match',
+  phrases: [],
+  variables: [],
+});

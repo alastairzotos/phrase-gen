@@ -10,14 +10,14 @@ import { urls } from '../urls';
 const Home: NextPage = () => {
   const { pathname } = useRouter();
 
-  const setPhrasesAndVariables = usePhraseGenState(s => s.setPhrasesAndVariables);
+  const setValues = usePhraseGenState(s => s.setValues);
   const clear = useProjectsState(s => s.clear);
 
   useEffect(() => {
     clear();
 
     if (pathname === urls.home()) {
-      setPhrasesAndVariables(
+      setValues(
         ['buy @item in @city', '@item for sale in @city'],
         [
           {
@@ -28,7 +28,8 @@ const Home: NextPage = () => {
             name: 'city',
             values: ['london', 'paris']
           }
-        ]
+        ],
+        'broad-match'
       )
     }
   }, [pathname]);
