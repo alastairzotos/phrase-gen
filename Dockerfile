@@ -48,6 +48,7 @@ COPY apps/${SCOPE}/package.json apps/${SCOPE}/package.json
 
 # Add libs here
 COPY libs/phrase-gen/package.json libs/phrase-gen/package.json
+COPY libs/dtos/package.json libs/dtos/package.json
 
 RUN yarn --frozen-lockfile
 
