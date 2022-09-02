@@ -5,7 +5,7 @@ import { getEnv } from '../env';
 import { useEffect } from 'react';
 import { useAuthState } from '../state/auth';
 
-function MyApp({ Component, pageProps }: AppProps) {
+function PhraseGenApp({ Component, pageProps }: AppProps) {
   const initLocalStorage = useAuthState(s => s.initLocalStorage);
 
   useEffect(() => {
@@ -21,4 +21,4 @@ function MyApp({ Component, pageProps }: AppProps) {
   )
 }
 
-export default MyApp
+export default PhraseGenApp
