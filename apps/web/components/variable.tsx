@@ -5,6 +5,7 @@ import { usePhraseGenState } from '../state/phrase-gen';
 import { Textarea } from './textarea';
 import styles from './variable.module.css';
 import { VariableValue } from '@bitmetro/phrase-gen';
+import { CustomTextArea } from './textarea/textarea';
 
 interface Props {
   variable: VariableValue;
@@ -107,10 +108,9 @@ export const Variable: React.FC<Props> = ({ variable }) => {
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
       >
-        <Textarea
-          rows={5}
+        <CustomTextArea
           value={variable.values.join('\n')}
-          onChange={handleValuesChange}
+          onChange={content => setVariableValues(variable.name, content.split('\n'))}
         />
       </Card>
 
