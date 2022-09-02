@@ -1,15 +1,20 @@
 import { Injectable } from "@nestjs/common";
-import { LoginResponse, LoggedInUserDetails, FbLoginDetails } from '@bitmetro/phrase-gen-dtos';
+import { LoginResponse, UserDetails, FbLoginDetails, LoggedInUserDetails } from '@bitmetro/phrase-gen-dtos';
 import { EnvService } from "src/environment/environment.service";
 
 import { OAuth2Client } from 'google-auth-library';
 import * as jwt from 'jsonwebtoken';
+import { UsersService } from "src/users/users.service";
+import { User } from "src/schemas/user.schema";
 
 @Injectable()
 export class AuthService {
   private readonly client: OAuth2Client;
 
-  constructor(private readonly env: EnvService) {
+  constructor(
+    private readonly env: EnvService,
+    private readonly usersService: UsersService,
+  ) {
     this.client = new OAuth2Client({
       clientId: env.get().googleClientId,
       clientSecret: env.get().googleClientSecret,
@@ -22,20 +27,38 @@ export class AuthService {
 
     const { email, given_name: givenName } = jwt.decode(id_token) as { email: string, name: string, given_name: string, family_name: string };
 
-    const userDetails: LoggedInUserDetails = { email, givenName }
+    const userDetails: UserDetails = { email, givenName };
+
+    const user = await this.registerUserIfNotExists(userDetails);
 
     return {
-      accessToken: jwt.sign(userDetails, this.env.get().jwtSigningKey)
+      accessToken: this.generateAccessToken(user)
     }
   }
 
   async loginWithFacebook(details: FbLoginDetails): Promise<LoginResponse> {
     const { email, first_name: givenName } = details;
 
-    const userDetails: LoggedInUserDetails = { email, givenName };
+    const userDetails: UserDetails = { email, givenName };
+
+    const user = await this.registerUserIfNotExists(userDetails);
 
     return {
-      accessToken: jwt.sign(userDetails, this.env.get().jwtSigningKey)
+      accessToken: this.generateAccessToken(user)
     }
+  }
+
+  private generateAccessToken({ _id, email, givenName }: User) {
+    return jwt.sign({ _id, email, givenName }, this.env.get().jwtSigningKey);
+  }
+  
+  private async registerUserIfNotExists(details: UserDetails) {
+    let user = await this.usersService.getUserByEmail(details.email);
+
+    if (!user) {
+      user = await this.usersService.createUser(details);
+    }
+
+    return user;
   }
 }

@@ -11,7 +11,11 @@ export interface LoginResponse {
   accessToken: string;
 }
 
-export interface LoggedInUserDetails {
+export interface UserDetails {
   email: string;
   givenName: string;
+}
+
+export interface LoggedInUserDetails extends UserDetails {
+  _id: string;
 }

@@ -10,6 +10,7 @@ export class EnvService {
     googleClientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
     fbAppId: process.env.FB_APP_ID as string,
     fbAppSecret: process.env.FB_APP_SECRET as string,
+    dbConnectionString: process.env.DB_CONNECTION_STRING as string,
   };
 
   get() {
