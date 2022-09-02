@@ -41,7 +41,7 @@ export const PhraseGen: React.FC = () => {
         {loadStatus === 'failure' && (
           <div className={styles.overlay}>
             <Title>Project not found</Title>
-            <Title level={4}>It must've been deleted</Title>
+            <Title level={4}>It must&apos;ve been deleted</Title>
             <Link href={urls.home()}>
               <LinkText>Return home</LinkText>
             </Link>
