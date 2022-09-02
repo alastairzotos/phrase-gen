@@ -9,13 +9,13 @@ import { User } from "src/schemas/user.schema";
 
 @Injectable()
 export class AuthService {
-  private readonly googleOauth2Client: OAuth2Client;
+  private readonly googleOAuth2Client: OAuth2Client;
 
   constructor(
     private readonly env: EnvService,
     private readonly usersService: UsersService,
   ) {
-    this.googleOauth2Client = new OAuth2Client({
+    this.googleOAuth2Client = new OAuth2Client({
       clientId: env.get().googleClientId,
       clientSecret: env.get().googleClientSecret,
       redirectUri: env.get().frontendUrl,
@@ -23,7 +23,7 @@ export class AuthService {
   }
 
   async loginWithGoogle(code: string): Promise<LoginResponse> {
-    const { tokens: { id_token } } = await this.googleOauth2Client.getToken(code);
+    const { tokens: { id_token } } = await this.googleOAuth2Client.getToken(code);
 
     const { email, given_name: givenName } = jwt.decode(id_token) as { email: string, name: string, given_name: string, family_name: string };
 
