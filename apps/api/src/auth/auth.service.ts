@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { LoginResponse, LoggedInUserDetails } from '@bitmetro/phrase-gen-dtos';
+import { LoginResponse, LoggedInUserDetails, FbLoginDetails } from '@bitmetro/phrase-gen-dtos';
 import { EnvService } from "src/environment/environment.service";
 
 import { OAuth2Client } from 'google-auth-library';
@@ -25,7 +25,17 @@ export class AuthService {
     const userDetails: LoggedInUserDetails = { email, givenName }
 
     return {
-      accessToken: jwt.sign(userDetails,this.env.get().jwtSigningKey)
+      accessToken: jwt.sign(userDetails, this.env.get().jwtSigningKey)
+    }
+  }
+
+  async loginWithFacebook(details: FbLoginDetails): Promise<LoginResponse> {
+    const { email, first_name: givenName } = details;
+
+    const userDetails: LoggedInUserDetails = { email, givenName };
+
+    return {
+      accessToken: jwt.sign(userDetails, this.env.get().jwtSigningKey)
     }
   }
 }

@@ -20,7 +20,7 @@ export const AppHeader: React.FC = () => {
     extra = [<Button key='login' type='primary' onClick={() => setLoginModalOpen(true)}>Login to save</Button>];
   } else {
     extra = [
-      <Text>Welcome {userDetails!.givenName}</Text>,
+      <Text key='welcome'>Welcome {userDetails!.givenName}</Text>,
       <Button key='logout' onClick={logout}>Logout</Button>
     ]
   }

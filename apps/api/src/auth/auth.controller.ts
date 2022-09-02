@@ -1,5 +1,5 @@
 import { Body, Controller, Post } from "@nestjs/common";
-import { LoginRequest } from '@bitmetro/phrase-gen-dtos';
+import { FbLoginDetails, GoogleLoginRequest } from '@bitmetro/phrase-gen-dtos';
 import { AuthService } from "./auth.service";
 
 
@@ -9,8 +9,15 @@ export class AuthController {
 
   @Post('google')
   async loginWithGoogle(
-    @Body() { code }: LoginRequest
+    @Body() { code }: GoogleLoginRequest
   ) {
     return await this.authService.loginWithGoogle(code);
+  }
+
+  @Post('facebook')
+  async loginWithFacebook(
+    @Body() details: FbLoginDetails
+  ) {
+    return await this.authService.loginWithFacebook(details);
   }
 }
