@@ -11,6 +11,10 @@ export class ProjectsService {
     return await this.projectsRepository.getProject(id);
   }
 
+  async getProjects(user: User) {
+    return await this.projectsRepository.getProjects(user);
+  }
+
   async saveProject(user: User, project: ProjectData) {
     return await this.projectsRepository.saveProject(user, project);
   }

@@ -2,9 +2,10 @@ import { Button, PageHeader, Typography } from 'antd';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import { useAuthState } from '../state/auth';
+import { urls } from '../urls';
 import { getUserDetails } from '../utils/user';
 import { LoginModal } from './login-modal';
-import { SaveForm } from './save';
+import { SaveFormAndList } from './save-form-and-list';
 
 const { Text } = Typography;
 
@@ -32,10 +33,10 @@ export const AppHeader: React.FC = () => {
   let tags: React.ReactNode = [];
 
   if (!!accessToken) {
-    tags = [<SaveForm key='save' />]
+    tags = [<SaveFormAndList key='save' />]
   }
 
-  const onBack = pathname === '/' ? undefined : () => push('/');
+  const onBack = pathname === urls.home() ? undefined : () => push(urls.home());
 
   return (
     <>

@@ -11,6 +11,13 @@ import { ProjectsService } from "./projects.service";
 export class ProjectsController {
   constructor(private readonly projectsService: ProjectsService) {}
 
+  @Get()
+  async getProjects(
+    @Principal() user: User
+  ) {
+    return await this.projectsService.getProjects(user);
+  }
+
   @Get(':id')
   @Roles('all')
   async getProject(@Param('id') id: string) {

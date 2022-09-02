@@ -29,3 +29,5 @@ export interface ProjectData {
   variables: VariableValue[];
   lastUpdated: Date;
 }
+
+export type ProjectListItem = Pick<ProjectData, '_id' | 'name'>;

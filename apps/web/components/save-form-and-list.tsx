@@ -1,8 +1,9 @@
 import { Button, Input } from 'antd';
 import React from 'react';
 import { useProjectsState } from '../state/projects';
+import { ProjectList } from './project-list';
 
-export const SaveForm: React.FC = () => {
+export const SaveFormAndList: React.FC = () => {
   const [saveStatus, saveProject, name, setName, dirty] = useProjectsState(s => [s.saveStatus, s.saveProject, s.name, s.setName, s.dirty]);
 
   return (
@@ -20,6 +21,8 @@ export const SaveForm: React.FC = () => {
       >
         Save{dirty && '*'}
       </Button>
+
+      <ProjectList />
     </div>
   )
 }

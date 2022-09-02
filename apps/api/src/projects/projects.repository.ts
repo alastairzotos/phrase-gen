@@ -1,4 +1,4 @@
-import { ProjectData } from "@bitmetro/phrase-gen-dtos";
+import { ProjectData, ProjectListItem } from "@bitmetro/phrase-gen-dtos";
 import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from 'mongoose';
@@ -13,6 +13,10 @@ export class ProjectsRepository {
 
   async getProject(id: string) {
     return await this.projectsModel.findById(id);
+  }
+
+  async getProjects(user: User): Promise<ProjectListItem[]> {
+    return await (await this.projectsModel.find({ user })).map(({ _id, name }) => ({ _id, name }));
   }
 
   async saveProject(user: User, project: ProjectData): Promise<string> {

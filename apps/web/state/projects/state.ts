@@ -4,6 +4,8 @@ import router from 'next/router'
 import { FetchStatus } from '../../models';
 import { IProjectsService, ProjectsService } from "../../services/projects.service";
 import { usePhraseGenState } from '../phrase-gen';
+import { ProjectData, ProjectListItem } from '@bitmetro/phrase-gen-dtos';
+import { urls } from '../../urls';
 
 export interface ProjectsValues {
   _id?: string;
@@ -11,6 +13,8 @@ export interface ProjectsValues {
   saveStatus?: FetchStatus;
   loadStatus?: FetchStatus;
   dirty: boolean;
+  loadProjectsStatus?: FetchStatus;
+  projects: ProjectListItem[];
 }
 
 export interface ProjectsActions {
@@ -18,6 +22,7 @@ export interface ProjectsActions {
   setName: (name: string) => void;
   saveProject: () => Promise<void>;
   loadProject: (id: string) => void;
+  loadProjects: () => void;
   clear: () => void;
 }
 
@@ -46,7 +51,7 @@ export const createProjectsState = (initialValues: ProjectsValues, projectsServi
 
         set({ saveStatus: 'success', dirty: false, _id });
 
-        router.push(`/project/${_id}`);
+        router.push(urls.project(_id));
       } catch {
         set({ saveStatus: 'failure' });
       }
@@ -66,12 +71,25 @@ export const createProjectsState = (initialValues: ProjectsValues, projectsServi
       }
     },
 
-    clear: () => set({ _id: undefined, name: undefined, dirty: false })
+    loadProjects: async () => {
+      try {
+        set({ loadProjectsStatus: 'fetching' });
+
+        const projects = await projectsService.loadProjects();
+
+        set({ loadProjectsStatus: 'success', projects });
+      } catch {
+        set({ loadProjectsStatus: 'failure' });
+      }
+    },
+
+    clear: () => set({ _id: undefined, name: undefined, dirty: false, projects: [] })
   }));
 
 const initialValues: ProjectsValues = {
   name: '',
   dirty: false,
+  projects: []
 }
 
 export const useProjectsState = createProjectsState(initialValues, new ProjectsService());
