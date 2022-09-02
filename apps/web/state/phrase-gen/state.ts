@@ -18,6 +18,7 @@ interface PhraseGenActions {
   renameVariable: (name: string, newName: string) => void;
   setVariableValues: (name: string, values: string[]) => void;
   deleteVariable: (name: string) => void;
+  setVariables: (variables: VariableValue[]) => void;
   setMatchType: (matchType: MatchType) => void;
   setValues: (phrases: string[], variables: VariableValue[], matchType: MatchType) => void;
 }
@@ -92,6 +93,11 @@ export const createPhraseGenState = (initialState: PhraseGenInputs) =>
 
       set({ output: generate(get()) });
 
+      useProjectsState.getState().setDirty(true);
+    },
+
+    setVariables: variables => {
+      set({ variables, output: generate(get()) });
       useProjectsState.getState().setDirty(true);
     },
 

@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { Card, Typography, Space, Tooltip, Modal } from 'antd';
 import { CloseOutlined, WarningFilled } from '@ant-design/icons';
-import { usePhraseGenState } from '../state/phrase-gen';
-import { Textarea } from './textarea';
-import styles from './variable.module.css';
 import { VariableValue } from '@bitmetro/phrase-gen';
-import { CustomTextArea } from './textarea/textarea';
+
+import { usePhraseGenState } from '../../state/phrase-gen';
+import { CustomTextArea } from '../textarea/textarea';
+
+import styles from './variable.module.css';
 
 interface Props {
   variable: VariableValue;
+  dragHandle: React.ReactNode;
 }
 
 const errors = {
@@ -21,7 +23,7 @@ type ErrorType = keyof typeof errors | null;
 
 const { Text } = Typography;
 
-export const Variable: React.FC<Props> = ({ variable }) => {
+export const Variable: React.FC<Props> = ({ variable, dragHandle }) => {
   const variables = usePhraseGenState(state => state.variables);
   const renameVariable = usePhraseGenState(state => state.renameVariable);
   const setVariableValues = usePhraseGenState(state => state.setVariableValues);
@@ -67,9 +69,6 @@ export const Variable: React.FC<Props> = ({ variable }) => {
     setName(value);
   }
 
-  const handleValuesChange = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) =>
-    setVariableValues(variable.name, e.target.value.split('\n'));
-
   const handleDelete = () => {
     setDeleteModalOpen(false);
     deleteVariable(variable.name);
@@ -89,7 +88,7 @@ export const Variable: React.FC<Props> = ({ variable }) => {
             {name}
           </Text>
         }
-        bodyStyle={{ padding: 4 }}
+        bodyStyle={{ padding: 4, height: 150 }}
         extra={
           <Space>
             {!!error && (
@@ -97,6 +96,8 @@ export const Variable: React.FC<Props> = ({ variable }) => {
                 <WarningFilled />
               </Tooltip>
             )}
+
+              {hovered && dragHandle}
 
             {hovered && (
               <a onClick={() => setDeleteModalOpen(true)}>

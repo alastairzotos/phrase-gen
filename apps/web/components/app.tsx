@@ -1,7 +1,7 @@
 import React from 'react';
 import { Row, Col, Spin, Typography } from 'antd';
 import { Inputs } from './inputs';
-import { Variables } from './variables';
+import { Variables } from './variables/variables';
 import { Output } from './output';
 import { AppTemplate } from './app-template';
 import { useProjectsState } from '../state/projects';

@@ -11,6 +11,8 @@
   "dependencies": {
     "@bitmetro/phrase-gen": "*",
     "@bitmetro/phrase-gen-dtos": "*",
+    "@dnd-kit/core": "^6.0.5",
+    "@dnd-kit/sortable": "^7.0.1",
     "@react-oauth/google": "^0.2.6",
     "antd": "^4.22.8",
     "jsonwebtoken": "^8.5.1",
