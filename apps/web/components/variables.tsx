@@ -26,7 +26,7 @@ export const Variables: React.FC = () => {
       <Row>
         {
           variables.map(variable => (
-            <Col span={9} key={variable.name}>
+            <Col span={6} key={variable.name}>
               <Variable variable={variable} />
             </Col>
           ))
