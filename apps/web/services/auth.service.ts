@@ -7,7 +7,7 @@ export interface IAuthService {
 
 export class AuthService extends HttpService implements IAuthService {
   async loginWithGoogle(code: string): Promise<string> {
-    const { data } = await this.httpClient.post<LoginRequest, { data: LoginResponse }>(`/auth/login-google`, { code })
+    const { data } = await this.httpClient.post<LoginRequest, { data: LoginResponse }>(`/auth/google`, { code })
 
     return data.accessToken;
   }
