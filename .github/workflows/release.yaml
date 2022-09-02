@@ -24,6 +24,10 @@ jobs:
           build-args: |
             SCOPE=web
             PORT=3000
+            NEXT_PUBLIC_API_URL=https://phrase-gen-api.bitmetro.io
+            NEXT_PUBLIC_GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }}
+            NEXT_PUBLIC_FB_APP_ID=${{ secrets.FB_APP_ID }}
+
 
       - name: Build and push api
         uses: docker/build-push-action@v2
@@ -34,3 +38,10 @@ jobs:
           build-args: |
             SCOPE=api
             PORT=3001
+            FRONTEND_URL=https://phrase-gen.bitmetro.io
+            JWT_SIGNING_KEY=${{ secrets.JWT_SIGNING_KEY }}
+            GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }}
+            GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }}
+            FB_APP_ID=${{ secrets.FB_APP_ID }}
+            FB_APP_SECRET=${{ secrets.FB_APP_SECRET }}
+            DB_CONNECTION_STRING=${{ secrets.DB_CONNECTION_STRING }}
