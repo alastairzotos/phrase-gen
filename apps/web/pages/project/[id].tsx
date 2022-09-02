@@ -9,7 +9,7 @@ interface Props {
 }
 
 const ProjectPage: NextPage<Props> = ({ id }) => {
-  const [loadProject] = useProjectsState(s => [s.loadProject]);
+  const [loadProject, name] = useProjectsState(s => [s.loadProject, s.name]);
 
   useEffect(() => {
     loadProject(id);
@@ -18,7 +18,9 @@ const ProjectPage: NextPage<Props> = ({ id }) => {
   return (
     <>
       <Head>
-        <title>PhraseGen | BitMetro</title>
+        <title>
+          {(!name || name === '') ? 'PhraseGen | BitMetro' : `${name} | PhraseGen | BitMetro`}
+        </title>
         <meta name="description" content="Create high-quantity targeted Google Ads keyword phrases" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
