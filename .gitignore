@@ -35,3 +35,5 @@ yarn-error.log*
 # other
 dist
 .npmrc
+.env
+.env.*

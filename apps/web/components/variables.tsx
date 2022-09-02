@@ -1,7 +1,7 @@
 import React from 'react';
 import { Row, Col, Button } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
-import { usePhraseGenState } from '../state';
+import { usePhraseGenState } from '../state/phrase-gen';
 import { Variable } from './variable';
 import { Column } from './column';
 

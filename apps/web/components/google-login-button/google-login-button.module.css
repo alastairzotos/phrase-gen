@@ -1,0 +1,24 @@
+.button {
+  background-image: url(/google-icon.png);
+  background-size: 20px 20px;
+  background-repeat: no-repeat;
+  background-position: 10px 9px;
+}
+
+.button:hover {
+  background-image: url(/google-icon.png);
+  background-size: 20px 20px;
+  background-repeat: no-repeat;
+  background-position: 10px 9px;
+}
+
+.button:active {
+  background-image: url(/google-icon.png);
+  background-size: 20px 20px;
+  background-repeat: no-repeat;
+  background-position: 10px 9px;
+}
+
+.span {
+  margin-left: 25px;
+}

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Card, Typography, Space, Tooltip, Modal } from 'antd';
 import { CloseOutlined, WarningFilled } from '@ant-design/icons';
-import { usePhraseGenState } from '../state';
+import { usePhraseGenState } from '../state/phrase-gen';
 import { Textarea } from './textarea';
 import styles from './variable.module.css';
 import { VariableValue } from '@bitmetro/phrase-gen';

@@ -1,5 +1,5 @@
 import React from 'react';
-import { usePhraseGenState } from '../state';
+import { usePhraseGenState } from '../state/phrase-gen';
 import { Column } from './column';
 import { Textarea } from './textarea';
 

@@ -1,25 +1,13 @@
-import { Layout, Space, Typography } from 'antd';
-import Image from 'next/image';
+import { Layout } from 'antd';
 import React from 'react';
+import { AppHeader } from './app-header';
 
-const { Header, Content } = Layout;
-const { Title } = Typography;
+const { Content } = Layout;
 
 export const AppTemplate: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
   return (
     <>
-      <Header>
-        <Space direction="horizontal" size="large">
-          <Image
-            src="/bitmetro-logo.png"
-            width={50}
-            height={50}
-            alt="BitMetro Logo"
-          />
-
-          <Title style={{ color: 'white' }} level={3}>PhraseGen</Title>
-        </Space>
-      </Header>
+      <AppHeader />
 
       <Layout>
         <Content style={{ height: 'calc(100vh - 64px)' }}>

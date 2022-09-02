@@ -10,13 +10,17 @@
   },
   "dependencies": {
     "@bitmetro/phrase-gen": "*",
+    "@bitmetro/phrase-gen-dtos": "*",
+    "@react-oauth/google": "^0.2.6",
     "antd": "^4.22.8",
+    "jsonwebtoken": "^8.5.1",
     "next": "12.2.5",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "zustand": "^4.1.1"
   },
   "devDependencies": {
+    "@types/jsonwebtoken": "^8.5.9",
     "@types/node": "18.7.14",
     "@types/react": "18.0.18",
     "@types/react-dom": "18.0.6",
