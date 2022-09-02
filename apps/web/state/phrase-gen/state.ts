@@ -1,6 +1,6 @@
 import create from 'zustand';
 import { generateOutput, VariableValue, PhraseGenResult } from '@bitmetro/phrase-gen';
-import { initialState } from './initial';
+import { useProjectsState } from '../projects';
 
 export interface PhraseGenInputs {
   phrases: string[];
@@ -17,6 +17,7 @@ interface PhraseGenActions {
   renameVariable: (name: string, newName: string) => void;
   setVariableValues: (name: string, values: string[]) => void;
   deleteVariable: (name: string) => void;
+  setPhrasesAndVariables: (phrases: string[], variables: VariableValue[]) => void;
 }
 
 type PhraseGenState = PhraseGenData & PhraseGenActions;
@@ -24,12 +25,15 @@ type PhraseGenState = PhraseGenData & PhraseGenActions;
 const generate = (state: PhraseGenInputs) => generateOutput(state.phrases, state.variables);
 
 export const usePhraseGenState = create<PhraseGenState>((set, get) => ({
-  ...initialState,
-  output: generate(initialState),
+  phrases: [],
+  variables: [],
+  output: generate({ phrases: [], variables: [] }),
 
   setPhrases: phrases => {
     set({ phrases: phrases.map(phrase => phrase.trimStart()) });
     set({ output: generate(get()) });
+
+    useProjectsState.getState().setDirty(true);
   },
 
   addVariable: name => {
@@ -41,6 +45,8 @@ export const usePhraseGenState = create<PhraseGenState>((set, get) => ({
     });
 
     set({ output: generate(get()) });
+
+    useProjectsState.getState().setDirty(true);
   },
 
   renameVariable: (name, newName) => {
@@ -55,6 +61,8 @@ export const usePhraseGenState = create<PhraseGenState>((set, get) => ({
     });
 
     set({ output: generate(get()) });
+
+    useProjectsState.getState().setDirty(true);
   },
 
   setVariableValues: (name, values) => {
@@ -69,6 +77,8 @@ export const usePhraseGenState = create<PhraseGenState>((set, get) => ({
     });
 
     set({ output: generate(get()) });
+
+    useProjectsState.getState().setDirty(true);
   },
 
   deleteVariable: name => {
@@ -79,5 +89,9 @@ export const usePhraseGenState = create<PhraseGenState>((set, get) => ({
     });
 
     set({ output: generate(get()) });
-  }
+
+    useProjectsState.getState().setDirty(true);
+  },
+
+  setPhrasesAndVariables: (phrases, variables) => set({ phrases, variables, output: generate({ phrases, variables }) }),
 }));

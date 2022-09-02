@@ -1,10 +1,11 @@
+import { LoggedInUserDetails } from '@bitmetro/phrase-gen-dtos';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 
 export type UserDocument = User & Document;
 
 @Schema({ collection: 'users' })
-export class User {
+export class User implements LoggedInUserDetails {
   _id: string;
   
   @Prop()

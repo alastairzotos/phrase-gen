@@ -1,3 +1,5 @@
+import { VariableValue } from "@bitmetro/phrase-gen";
+
 export interface GoogleLoginRequest {
   code: string;
 }
@@ -18,4 +20,12 @@ export interface UserDetails {
 
 export interface LoggedInUserDetails extends UserDetails {
   _id: string;
+}
+
+export interface ProjectData {
+  _id?: string;
+  name: string;
+  inputs: string[];
+  variables: VariableValue[];
+  lastUpdated: Date;
 }
