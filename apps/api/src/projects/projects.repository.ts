@@ -19,7 +19,7 @@ export class ProjectsRepository {
     const found = project._id ? await this.projectsModel.findById(project._id) : undefined;
 
     if (found) {
-      await this.projectsModel.updateOne({ user, ...project });
+      await this.projectsModel.updateOne({ _id: project._id }, project)
       return project._id;
     }
 

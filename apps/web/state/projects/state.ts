@@ -4,7 +4,6 @@ import router from 'next/router'
 import { FetchStatus } from '../../models';
 import { IProjectsService, ProjectsService } from "../../services/projects.service";
 import { usePhraseGenState } from '../phrase-gen';
-import { ProjectData } from '@bitmetro/phrase-gen-dtos';
 
 export interface ProjectsValues {
   _id?: string;
