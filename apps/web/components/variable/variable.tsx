@@ -66,6 +66,7 @@ export const Variable: React.FC<Props> = ({ variable, dragHandle }) => {
     if (validateName(value) && value !== variable.name) {
       renameVariable(variable.name, value);
     }
+    
     setName(value);
   }
 

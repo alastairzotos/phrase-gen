@@ -27,6 +27,14 @@ export type PhraseGenState = PhraseGenData & PhraseGenActions;
 
 const generate = ({ phrases, variables, matchType }: PhraseGenInputs) => generateOutput(phrases, variables, matchType);
 
+const replaceVariableName = (line: string, oldName: string, newName: string) =>
+  line.replaceAll(`@${oldName}`, `@${newName}`)
+
+const updateVariableReferences = (variable: VariableValue, oldName: string, newName: string): VariableValue => ({
+  ...variable,
+  values: variable.values.map(value => replaceVariableName(value, oldName, newName))
+})
+
 export const createPhraseGenState = (initialState: PhraseGenInputs) =>
   create<PhraseGenState>((set, get) => ({
     ...initialState,
@@ -59,8 +67,9 @@ export const createPhraseGenState = (initialState: PhraseGenInputs) =>
             .map(variable => (
               variable.name === name
                 ? { ...variable, name: newName }
-                : variable
-            ))
+                : updateVariableReferences(variable, name, newName)
+            )),
+        phrases: get().phrases.map(phrase => replaceVariableName(phrase, name, newName))
       });
 
       set({ output: generate(get()) });

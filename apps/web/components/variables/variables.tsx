@@ -52,7 +52,6 @@ export const Variables: React.FC = () => {
 
         return newList;
       })
-      
     }
   }
 
