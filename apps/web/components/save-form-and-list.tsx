@@ -4,7 +4,11 @@ import { useProjectsState } from '../state/projects';
 import { ProjectList } from './project-list';
 
 export const SaveFormAndList: React.FC = () => {
-  const [saveStatus, saveProject, name, setName, dirty] = useProjectsState(s => [s.saveStatus, s.saveProject, s.name, s.setName, s.dirty]);
+  const [loadStatus, saveStatus, saveProject, name, setName, dirty] = useProjectsState(s => [s.loadStatus, s.saveStatus, s.saveProject, s.name, s.setName, s.dirty]);
+
+  if (loadStatus === 'failure') {
+    return null;
+  }
 
   return (
     <div style={{ display: 'flex' }}>

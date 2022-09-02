@@ -83,7 +83,7 @@ export const createProjectsState = (initialValues: ProjectsValues, projectsServi
       }
     },
 
-    clear: () => set({ _id: undefined, name: undefined, dirty: false, projects: [] })
+    clear: () => set({ _id: undefined, name: undefined, dirty: false, projects: [], loadStatus: undefined, loadProjectsStatus: undefined })
   }));
 
 const initialValues: ProjectsValues = {

@@ -1,7 +1,8 @@
-.spin {
+.overlay {
   display: flex;
   flex-direction: column;
   justify-content: center;
+
   top: 0;
   left: 0;
   right: 0;
@@ -9,6 +10,8 @@
 
   position: absolute;
   background-color: rgba(0, 0, 0, 0.1);
+
+  text-align: center;
 }
 
 .wrapper {

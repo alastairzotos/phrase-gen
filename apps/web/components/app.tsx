@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col, Spin } from 'antd';
+import { Row, Col, Spin, Typography } from 'antd';
 import { Inputs } from './inputs';
 import { Variables } from './variables';
 import { Output } from './output';
@@ -7,6 +7,10 @@ import { AppTemplate } from './app-template';
 import { useProjectsState } from '../state/projects';
 
 import styles from './app.module.css';
+import Link from 'next/link';
+import { urls } from '../urls';
+
+const { Title, Link: LinkText } = Typography;
 
 export const PhraseGen: React.FC = () => {
   const loadStatus = useProjectsState(s => s.loadStatus);
@@ -29,8 +33,18 @@ export const PhraseGen: React.FC = () => {
         </Row>
 
         {loadStatus === 'fetching' && (
-          <div className={styles.spin}>
+          <div className={styles.overlay}>
             <Spin size='large' />
+          </div>
+        )}
+
+        {loadStatus === 'failure' && (
+          <div className={styles.overlay}>
+            <Title>Project not found</Title>
+            <Title level={4}>It must've been deleted</Title>
+            <Link href={urls.home()}>
+              <LinkText>Return home</LinkText>
+            </Link>
           </div>
         )}
       </div>
