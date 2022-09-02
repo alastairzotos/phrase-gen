@@ -2,3 +2,8 @@
   font-weight: bold;
   color: #0079cf;
 }
+
+.variableerror {
+  font-weight: bold;
+  color: #ff0000;
+}

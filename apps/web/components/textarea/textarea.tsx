@@ -1,5 +1,8 @@
 import React from 'react';
+import { VariableValue } from '@bitmetro/phrase-gen';
 import Editor from 'react-simple-code-editor';
+
+import { usePhraseGenState } from '../../state/phrase-gen';
 
 import styles from './textarea.module.css';
 
@@ -8,33 +11,39 @@ interface Props {
   onChange: (content: string) => void;
 }
 
-const highlightLine = (line: string) =>
+const highlightLine = (line: string, variables: VariableValue[]) =>
   line
     .split(' ')
     .map((word, index) => (
       <React.Fragment key={index}>
         {
           word.startsWith('@')
-            ? <span className={styles.variable}>{word}</span>
+            ? (
+              variables.find(v => '@' + v.name === word)
+                ? <span className={styles.variable}>{word}</span>
+                : <span className={styles.variableerror}>{word}</span>
+            )
             : word
         }
         {' '}
       </React.Fragment>
     ))
 
-const handleHighlight = (code: string) =>
+const handleHighlight = (code: string, variables: VariableValue[]) =>
   code
     .split('\n')
-    .map((line, index) => <React.Fragment key={index}>{highlightLine(line)} <br /></React.Fragment>)
+    .map((line, index) => <React.Fragment key={index}>{highlightLine(line, variables)} <br /></React.Fragment>)
 
 
 export const CustomTextArea: React.FC<Props> = ({ value: content, onChange }) => {
+  const variables = usePhraseGenState(s => s.variables);
+
   return (
     <Editor
       style={{ fontFamily: 'lucida console, monospace' }}
       value={content}
       onValueChange={content => onChange(content)}
-      highlight={handleHighlight}
+      highlight={code => handleHighlight(code, variables)}
     />
   )
 };
