@@ -13,7 +13,7 @@ const ProjectPage: NextPage<Props> = ({ id }) => {
 
   useEffect(() => {
     loadProject(id);
-  }, [])
+  }, [id])
 
   return (
     <>

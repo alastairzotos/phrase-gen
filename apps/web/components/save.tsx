@@ -14,7 +14,8 @@ export const SaveForm: React.FC = () => {
       />
 
       <Button
-        disabled={saveStatus === 'fetching' || name.trim() === ''}
+        disabled={saveStatus === 'fetching' || (!!name && name.trim() === '')}
+        type='primary'
         onClick={saveProject}
       >
         Save{dirty && '*'}

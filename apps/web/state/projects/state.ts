@@ -19,6 +19,7 @@ export interface ProjectsActions {
   setName: (name: string) => void;
   saveProject: () => Promise<void>;
   loadProject: (id: string) => void;
+  clear: () => void;
 }
 
 export type ProjectsState = ProjectsValues & ProjectsActions;
@@ -64,7 +65,9 @@ export const createProjectsState = (initialValues: ProjectsValues, projectsServi
       } catch {
         set({ loadStatus: 'failure' });
       }
-    }
+    },
+
+    clear: () => set({ _id: undefined, name: undefined, dirty: false })
   }));
 
 const initialValues: ProjectsValues = {

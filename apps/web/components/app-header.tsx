@@ -31,7 +31,7 @@ export const AppHeader: React.FC = () => {
 
   let tags: React.ReactNode = [];
 
-  if (!!accessToken && pathname !== '/') {
+  if (!!accessToken) {
     tags = [<SaveForm key='save' />]
   }
 
