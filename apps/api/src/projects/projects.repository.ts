@@ -16,7 +16,7 @@ export class ProjectsRepository {
   }
 
   async getProjects(user: User): Promise<ProjectListItem[]> {
-    return await (await this.projectsModel.find({ user })).map(({ _id, name }) => ({ _id, name }));
+    return (await this.projectsModel.find({ user })).map(({ _id, name }) => ({ _id, name }));
   }
 
   async saveProject(user: User, project: ProjectData): Promise<string> {
