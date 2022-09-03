@@ -1,6 +1,6 @@
 import create from 'zustand';
 import { generateOutput, VariableValue, PhraseGenResult, MatchType } from '@bitmetro/phrase-gen';
-import { ProjectsState, useProjectsState } from '../projects';
+import { useProjectsState } from '../projects';
 
 export interface PhraseGenInputs {
   phrases: string[];
