@@ -25,6 +25,7 @@ export interface LoggedInUserDetails extends UserDetails {
 export interface ProjectData {
   _id?: string;
   name: string;
+  user: LoggedInUserDetails;
   inputs: string[];
   variables: VariableValue[];
   matchType: MatchType;

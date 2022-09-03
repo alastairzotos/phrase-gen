@@ -10,7 +10,7 @@ export type ProjectDocument = Project & Document;
 export class Project implements ProjectData {
   _id: string;
 
-  @Prop({ type: MongooseSchemma.Types.ObjectId, ref: 'users' })
+  @Prop({ type: MongooseSchemma.Types.ObjectId, ref: 'User' })
   user: User;
 
   @Prop()

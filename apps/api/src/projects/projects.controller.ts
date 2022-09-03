@@ -1,5 +1,5 @@
 import { ProjectData } from "@bitmetro/phrase-gen-dtos";
-import { Body, Controller, Get, Param, Post, UseGuards, NotFoundException } from "@nestjs/common";
+import { Body, Controller, Get, Param, Post, UseGuards, NotFoundException, ForbiddenException } from "@nestjs/common";
 import { AuthGuard } from "src/auth/auth.guard";
 import { Roles } from "src/auth/roles.decorator";
 import { User } from "src/schemas/user.schema";
@@ -9,7 +9,7 @@ import { ProjectsService } from "./projects.service";
 @UseGuards(AuthGuard)
 @Controller('projects')
 export class ProjectsController {
-  constructor(private readonly projectsService: ProjectsService) {}
+  constructor(private readonly projectsService: ProjectsService) { }
 
   @Get()
   async getProjects(
@@ -35,6 +35,12 @@ export class ProjectsController {
     @Principal() user: User,
     @Body() data: ProjectData
   ) {
-    return await this.projectsService.saveProject(user, data);
+    const result = await this.projectsService.saveProject(user, data);
+
+    if (result.error === 'unauthorised') {
+      throw new ForbiddenException();
+    }
+
+    return result!.id;
   }
 }
