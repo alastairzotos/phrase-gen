@@ -1,7 +1,6 @@
 import { LoggedInUserDetails } from '@bitmetro/phrase-gen-dtos';
 import * as jwt from 'jsonwebtoken';
 import { useAuthState } from '../state/auth';
-import { getLocalStorage } from './localstorage';
 
 export const ACCESS_TOKEN_LOCALSTORAGE_KEY = 'phrasegen:access_token';
 
