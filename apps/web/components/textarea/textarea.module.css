@@ -9,7 +9,7 @@
 }
 
 .wrapper {
-  max-height: 140px;
+  max-height: 100%;
   overflow: auto;
 }
 

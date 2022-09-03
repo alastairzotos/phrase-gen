@@ -9,10 +9,12 @@ export const Inputs: React.FC = () => {
 
   return (
     <Column title="Inputs">
-      <CustomTextArea
-        value={phrases.join('\n')}
-        onChange={content => setPhrases(content.split('\n'))}
-      />
+      <div style={{ height: 'calc(100vh - 120px)' }}>
+        <CustomTextArea
+          value={phrases.join('\n')}
+          onChange={content => setPhrases(content.split('\n'))}
+        />
+      </div>
     </Column>
   )
 }
