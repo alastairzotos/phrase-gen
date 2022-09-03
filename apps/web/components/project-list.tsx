@@ -1,6 +1,7 @@
 import { Spin, Select } from 'antd';
 import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
+import { useProjectData } from '../hooks/use-project-data';
 import { useAuthState } from '../state/auth';
 import { useProjectsState } from '../state/projects';
 import { urls } from '../urls';
@@ -12,8 +13,9 @@ const { Option } = Select;
 export const ProjectList: React.FC = () => {
   const { push } = useRouter();
 
-  const [loadProjectsStatus, loadProjects, projects, _id] = useProjectsState(s => [s.loadProjectsStatus, s.loadProjects, s.projects, s._id]);
+  const [loadProjectsStatus, loadProjects, projects, _id, name] = useProjectsState(s => [s.loadProjectsStatus, s.loadProjects, s.projects, s._id, s.name]);
   const accessToken = useAuthState(s => s.accessToken);
+  const { userCanSaveProject } = useProjectData();
 
   useEffect(() => {
     if (!!accessToken) {
@@ -27,7 +29,7 @@ export const ProjectList: React.FC = () => {
     <div className={styles.list}>
       {loadProjectsStatus === 'fetching' && <Spin size='small'/>}
       {loadProjectsStatus === 'success' && (
-        <Select defaultValue={_id} onChange={handleSelectProject} placeholder='No projects'>
+        <Select defaultValue={userCanSaveProject ? _id : name} onChange={handleSelectProject} placeholder="Select project">
         {
           projects.map(project => (
             <Option

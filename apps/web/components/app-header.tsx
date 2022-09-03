@@ -5,7 +5,8 @@ import { useAuthState } from '../state/auth';
 import { urls } from '../urls';
 import { getUserDetails } from '../utils/user';
 import { LoginModal } from './login-modal';
-import { SaveFormAndList } from './save-form-and-list';
+import { ProjectList } from './project-list';
+import { SaveForm } from './save-form';
 
 const { Text } = Typography;
 
@@ -33,7 +34,12 @@ export const AppHeader: React.FC = () => {
   let tags: React.ReactNode = [];
 
   if (!!accessToken) {
-    tags = [<SaveFormAndList key='save' />]
+    tags = [
+      <div key='save-form-and-projects' style={{ display: 'flex' }}>
+        <SaveForm />
+        <ProjectList />
+      </div>
+    ]
   }
 
   const onBack = pathname === urls.home() ? undefined : () => push(urls.home());
