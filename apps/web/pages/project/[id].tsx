@@ -32,8 +32,8 @@ const ProjectPage: NextPage<Props> = ({ id }) => {
 
 export default ProjectPage
 
-export const getServerSideProps: GetServerSideProps<{}> = async (f) => {
+export const getServerSideProps: GetServerSideProps<{}> = async (data) => {
   return {
-    props: { id: f.params!.id }
+    props: { id: data.params!.id }
   }
 }
