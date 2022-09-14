@@ -1,6 +1,7 @@
 import create from 'zustand';
 import { generateOutput, VariableValue, PhraseGenResult, MatchType } from '@bitmetro/phrase-gen';
 import { useProjectsState } from '../projects';
+import { tokenize } from '../../tokenizer';
 
 export interface PhraseGenInputs {
   phrases: string[];
@@ -28,7 +29,17 @@ export type PhraseGenState = PhraseGenData & PhraseGenActions;
 const generate = ({ phrases, variables, matchType }: PhraseGenInputs) => generateOutput(phrases, variables, matchType);
 
 const replaceVariableName = (line: string, oldName: string, newName: string) =>
-  line.replaceAll(`@${oldName}`, `@${newName}`)
+  tokenize(line)
+    .map(token => (
+      token.type === 'text'
+      ? token.token
+      : (
+        token.token === `@${oldName}`
+          ? `@${newName}`
+          : token.token
+      )
+    ))
+    .join('');
 
 const updateVariableReferences = (variable: VariableValue, oldName: string, newName: string): VariableValue => ({
   ...variable,
