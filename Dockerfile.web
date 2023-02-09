@@ -1,0 +1,30 @@
+FROM node:16-alpine as builder
+
+WORKDIR /app
+
+ARG SCOPE
+
+COPY . .
+RUN yarn global add turbo@1.5.5 && \
+    turbo prune --scope=${SCOPE} && \
+    cd out && \
+    yarn install && \
+    turbo run build --scope=${SCOPE} --include-dependencies && \
+    rm -rf node_modules/.cache .yarn/cache
+
+FROM node:16-alpine as app
+
+WORKDIR /app
+COPY --chown=node:node --from=builder /app/out .
+
+ARG SCOPE
+
+ENV NODE_ENV=production
+ENV NEXT_PUBLIC_API_URL=https://phrase-gen-api.bitmetro.io
+ENV NEXT_PUBLIC_GOOGLE_CLIENT_ID=417389414400-vig6vjcsj4uj0kujoscrnj9oj9n5jn24.apps.googleusercontent.com
+ENV NEXT_PUBLIC_FB_APP_ID=768507144435011
+
+WORKDIR /app/apps/${SCOPE}
+
+EXPOSE 3000
+CMD yarn start
