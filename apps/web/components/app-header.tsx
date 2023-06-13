@@ -49,7 +49,7 @@ export const AppHeader: React.FC = () => {
       <PageHeader
         onBack={onBack}
         title="PhraseGen"
-        avatar={{ src: '/bitmetro-logo.png', style: { backgroundColor: 'black', borderRadius: 0 } }}
+        avatar={{ src: '/bm-logo-new-white.png', style: { backgroundColor: 'black', borderRadius: 5, padding: 2 } }}
         extra={extra}
         tags={tags as any}
       />
