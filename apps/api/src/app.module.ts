@@ -5,10 +5,10 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { AuthModule } from './auth/auth.module';
 import { EnvModule } from './environment/environment.module';
 import { EnvService } from './environment/environment.service';
-import { HealthModule } from './health/health.module';
-import { PhrasesModule } from './phrases/phrases.module';
-import { ProjectsModule } from './projects/projects.module';
-import { IdentityModule } from 'src/identity/identity.module';
+import { HealthModule } from './features/health/health.module';
+import { PhrasesModule } from './features/phrases/phrases.module';
+import { ProjectsModule } from './features/projects/projects.module';
+import { IdentityModule } from 'src/integrations/identity/identity.module';
 
 @Module({
   imports: [

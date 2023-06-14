@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { EnvModule } from 'src/environment/environment.module';
-import { IdentityService } from 'src/identity/identity.service';
+import { IdentityService } from 'src/integrations/identity/identity.service';
 
 @Module({
   imports: [EnvModule],
