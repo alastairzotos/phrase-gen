@@ -1,21 +1,16 @@
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 
-import * as jwt from 'jsonwebtoken';
-import { EnvService } from 'src/environment/environment.service';
-import { UsersService } from 'src/users/users.service';
+import { IdentityService } from 'src/identity/identity.service';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
   constructor(
     private reflector: Reflector,
-    private readonly userService: UsersService,
-    private readonly envService: EnvService,
-  ) { }
+    private readonly identityService: IdentityService,
+  ) {}
 
-  async canActivate(
-    context: ExecutionContext,
-  ): Promise<boolean> {
+  async canActivate(context: ExecutionContext): Promise<boolean> {
     const roles = this.reflector.get<string[]>('roles', context.getHandler());
     if (roles && roles.includes('all')) {
       return true;
@@ -28,7 +23,7 @@ export class AuthGuard implements CanActivate {
       return false;
     }
 
-    const auth = headers.authentication;
+    const auth = headers.authentication || headers.authorization;
     if (!auth) {
       return false;
     }
@@ -40,17 +35,13 @@ export class AuthGuard implements CanActivate {
     }
 
     try {
-      const payload = jwt.verify(token, this.envService.get().jwtSigningKey) as jwt.JwtPayload;
-      if (!payload) {
+      const identity = await this.identityService.verifyIdentity(token);
+
+      if (!identity) {
         return false;
       }
 
-      const user = await this.userService.getUserByEmail(payload.email);
-      if (!user) {
-        return false;
-      }
-
-      request.principal = user;
+      request.principal = identity;
 
       return true;
     } catch {

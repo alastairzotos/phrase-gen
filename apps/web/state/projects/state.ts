@@ -4,13 +4,13 @@ import router from 'next/router'
 import { FetchStatus } from '../../models';
 import { IProjectsService, ProjectsService } from "../../services/projects.service";
 import { usePhraseGenState } from '../phrase-gen';
-import { LoggedInUserDetails, ProjectListItem } from '@bitmetro/phrase-gen-dtos';
+import { ProjectListItem } from '@bitmetro/phrase-gen-dtos';
 import { urls } from '../../urls';
 
 export interface ProjectsValues {
   _id?: string;
   name: string;
-  projectOwner?: LoggedInUserDetails;
+  projectOwnerId?: string;
   saveStatus?: FetchStatus;
   loadStatus?: FetchStatus;
   dirty: boolean;
@@ -63,9 +63,9 @@ export const createProjectsState = (initialValues: ProjectsValues, projectsServi
       try {
         set({ loadStatus: 'fetching' });
 
-        const { _id, name, inputs, variables, matchType, user: projectOwner } = await projectsService.loadProject(id);
+        const { _id, name, inputs, variables, matchType, ownerId } = await projectsService.loadProject(id);
 
-        set({ loadStatus: 'success', _id, name, projectOwner });
+        set({ loadStatus: 'success', _id, name, projectOwnerId: ownerId });
 
         usePhraseGenState.getState().setValues(inputs, variables, matchType);
       } catch {

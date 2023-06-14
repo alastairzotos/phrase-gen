@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 
-
 @Injectable()
 export class EnvService {
   private readonly env_vars = {
@@ -11,6 +10,7 @@ export class EnvService {
     fbAppId: process.env.FB_APP_ID as string,
     fbAppSecret: process.env.FB_APP_SECRET as string,
     dbConnectionString: process.env.DB_CONNECTION_STRING as string,
+    idServerApiKey: process.env.ID_SERVER_API_KEY as string,
   };
 
   get() {

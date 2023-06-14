@@ -1,23 +1,15 @@
 import '../styles/globals.css'
 import type { AppProps } from 'next/app'
-import { GoogleOAuthProvider } from '@react-oauth/google';
-import { getEnv } from '../env';
-import { useEffect } from 'react';
-import { useAuthState } from '../state/auth';
+import { AuthProvider } from "@bitmetro/auth-react";
 
 function PhraseGenApp({ Component, pageProps }: AppProps) {
-  const initLocalStorage = useAuthState(s => s.initLocalStorage);
-
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      initLocalStorage();
-    }
-  }, []);
-
   return (
-    <GoogleOAuthProvider clientId={getEnv().googleClientId}>
+    <AuthProvider
+      localStorageKey="@phrase-gen:access-token"
+      propertyId="bitmetro.phrase-gen"
+    >
       <Component {...pageProps} />
-    </GoogleOAuthProvider>
+    </AuthProvider>
   )
 }
 

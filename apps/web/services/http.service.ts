@@ -1,6 +1,6 @@
 import axios, { AxiosInstance } from 'axios';
 import { getEnv } from '../env';
-import { useAuthState } from '../state/auth';
+import { getAccessToken } from '@bitmetro/auth-react';
 
 export class HttpService {
   protected httpClient: AxiosInstance;
@@ -14,7 +14,7 @@ export class HttpService {
     });
     this.httpClient.interceptors.request.use(
       config => {
-        const accessToken = useAuthState.getState().accessToken;
+        const accessToken = getAccessToken();
 
         if (!!accessToken) {
           config.headers!.authentication = `Bearer ${accessToken}`;

@@ -1,5 +1,5 @@
-import { VariableValue, generateOutput } from "@bitmetro/phrase-gen";
-import { Injectable } from "@nestjs/common";
+import { VariableValue, generateOutput } from '@bitmetro/phrase-gen';
+import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class PhrasesService {

@@ -8,24 +8,24 @@ import { EnvService } from './environment/environment.service';
 import { HealthModule } from './health/health.module';
 import { PhrasesModule } from './phrases/phrases.module';
 import { ProjectsModule } from './projects/projects.module';
-import { UsersModule } from './users/users.module';
+import { IdentityModule } from 'src/identity/identity.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot(),
     EnvModule,
     AuthModule,
-    UsersModule,
     PhrasesModule,
     ProjectsModule,
     HealthModule,
+    IdentityModule,
     MongooseModule.forRootAsync({
       imports: [EnvModule],
       inject: [EnvService],
       useFactory: async (envService: EnvService) => ({
-        uri: envService.get().dbConnectionString
+        uri: envService.get().dbConnectionString,
       }),
-    })
+    }),
   ],
   controllers: [],
   providers: [],

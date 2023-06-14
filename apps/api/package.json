@@ -22,6 +22,7 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
+    "@bitmetro/auth-node": "^1.0.12",
     "@bitmetro/phrase-gen": "*",
     "@bitmetro/phrase-gen-dtos": "*",
     "@nestjs/common": "^8.0.0",

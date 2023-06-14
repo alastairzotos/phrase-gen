@@ -1,7 +1,7 @@
 module.exports = {
   reactStrictMode: true,
+  transpilePackages: ["@bitmetro/auth-react"],
   experimental: {
-    transpilePackages: ["ui"],
   },
   images: {},
   eslint: {
