@@ -1,6 +1,6 @@
 import axios, { AxiosInstance } from 'axios';
-import { getEnv } from '../env';
 import { getAccessToken } from '@bitmetro/auth-react';
+import { getEnv } from '../env';
 
 export class HttpService {
   protected httpClient: AxiosInstance;

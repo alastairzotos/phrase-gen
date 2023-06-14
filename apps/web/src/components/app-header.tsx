@@ -1,10 +1,10 @@
 import { Button, PageHeader, Typography } from 'antd';
 import { useRouter } from 'next/router';
-import React, { useState } from 'react';
-import { urls } from '../urls';
+import React from 'react';
 import { ProjectList } from './project-list';
 import { SaveForm } from './save-form';
-import { useAuthUrls, useCheckAuthState, useLoggedInUser, useLogout } from '@bitmetro/auth-react';
+import { useAuthUrls, useLoggedInUser, useLogout } from '@bitmetro/auth-react';
+import { urls } from '../urls';
 
 const { Text } = Typography;
 

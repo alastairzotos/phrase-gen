@@ -2,11 +2,11 @@ import { Spin, Select } from 'antd';
 import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
 import { useProjectData } from '../hooks/use-project-data';
-import { useProjectsState } from '../state/projects';
-import { urls } from '../urls';
 
 import styles from './project-list.module.css';
 import { useLoggedInUser } from '@bitmetro/auth-react';
+import { useProjectsState } from '../state/projects';
+import { urls } from '../urls';
 
 const { Option } = Select;
 
