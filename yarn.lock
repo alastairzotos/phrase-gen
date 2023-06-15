@@ -404,12 +404,12 @@
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
-"@bitmetro/auth-node@^1.0.12":
-  version "1.0.12"
-  resolved "https://registry.yarnpkg.com/@bitmetro/auth-node/-/auth-node-1.0.12.tgz#b68fe8f57b150f9e6dda5f288abf174c2d9224d8"
-  integrity sha512-lQzFNxgwGo2ToVOvSRixz/YEjEmJoErlQ0Q74KYrLqNw0o9ZuIIKOR5nKnEMcU2fktstDyGHLzyXbTflYJCpyw==
+"@bitmetro/auth-node@^1.0.13":
+  version "1.0.13"
+  resolved "https://registry.yarnpkg.com/@bitmetro/auth-node/-/auth-node-1.0.13.tgz#80f47c72ae6bf1390e01c1d08ec9119010eec25e"
+  integrity sha512-Tiimx8zCSUfRN+V+eIovqeQRNaIUIQYdjFUSCNN+02SIkawMltKWQC27B7nI/bznh2MbmRn/OCiImfuwbVWGzw==
   dependencies:
-    "@bitmetro/identity" "1.0.3"
+    "@bitmetro/identity" "*"
     axios "^1.4.0"
 
 "@bitmetro/auth-react@1.0.15":
@@ -421,7 +421,7 @@
     jsonwebtoken "^9.0.0"
     zustand "^4.3.8"
 
-"@bitmetro/identity@*", "@bitmetro/identity@1.0.3":
+"@bitmetro/identity@*":
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/@bitmetro/identity/-/identity-1.0.3.tgz#85a28f23b0854b8c48e7471d8616bcc408867a14"
   integrity sha512-97n+97X9vEZIvrJ81EFAfEQv0zoG27dt2VUufV1bPC0i68/JoKnzVTAzhYcng5iWTUywTra8utSG3rZ8Frspiw==

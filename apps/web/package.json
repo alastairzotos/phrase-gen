@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@bitmetro/auth-node": "^1.0.13",
     "@bitmetro/auth-react": "1.0.15",
     "@bitmetro/phrase-gen": "*",
     "@bitmetro/phrase-gen-dtos": "*",
